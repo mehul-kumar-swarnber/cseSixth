@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Home, BookOpen, Calendar, FileText } from 'lucide-react'
+import { ReactNode } from 'react'
 
 const tabs = [
   { href: '/', label: 'Home', icon: Home },
@@ -10,7 +11,7 @@ const tabs = [
   { href: '/notes', label: 'Notes', icon: FileText }
 ]
 
-export default function TabsLayout({ children }) {
+export default function TabsLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   
   return (
