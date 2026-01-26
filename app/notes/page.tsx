@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Plus, Folder, FileText, X, ArrowLeft, Trash2, Home, Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
-function getFolderName(notes, id) {
+function getFolderName(notes: any[], id: string | null) {
     if (!id) return 'Root';
     const found = notes.find(n => n._id === id);
     return found ? found.folder : '';
@@ -19,7 +19,7 @@ export default function Notes() {
     const [linkUrl, setLinkUrl] = useState("")
     const [linkText, setLinkText] = useState("")
     const [loading, setLoading] = useState(false)
-    const [currentFolderId, setCurrentFolderId] = useState(null)
+    const [currentFolderId, setCurrentFolderId] = useState<string | null>(null)
     const [breadcrumb, setBreadcrumb] = useState<any[]>([])
     const [searchQuery, setSearchQuery] = useState("")
     const [searchResults, setSearchResults] = useState<any[]>([])
@@ -42,13 +42,13 @@ export default function Notes() {
         } else {
             // Build breadcrumb up to root
             const path: { id: string; name: string }[] = []
-            let id = currentFolderId
+            let id: string | null = currentFolderId
             let safety = 0
             while (id && safety < 10) {
                 const node = notes.find(n => n._id === id)
                 if (!node) break
                 path.unshift({ id: node._id, name: node.folder })
-                id = node.parentId
+                id = node.parentId || null
                 safety++
             }
             setBreadcrumb(path)
@@ -71,7 +71,7 @@ export default function Notes() {
             })
     }, [searchQuery])
 
-    function handleAddFolder(e) {
+    function handleAddFolder(e: React.FormEvent) {
         e.preventDefault();
         setLoading(true);
         fetch('/api/notes', {
@@ -82,7 +82,7 @@ export default function Notes() {
             setShowAddFolder(false); setFolderName(""); setLoading(false);
         })
     }
-    function handleAddLink(e) {
+    function handleAddLink(e: React.FormEvent) {
         e.preventDefault();
         setLoading(true);
         fetch('/api/notes', {
@@ -98,7 +98,7 @@ export default function Notes() {
     const currentItems = notes.filter(n => (n.parentId || null) === (currentFolderId || null))
 
     // Delete note/folder/link
-    async function handleDelete(id) {
+    async function handleDelete(id: string) {
         if (!window.confirm('Delete this item?')) return;
         setLoading(true);
         await fetch('/api/notes', {
