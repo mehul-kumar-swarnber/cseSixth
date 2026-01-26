@@ -11,7 +11,7 @@ function getFolderName(notes, id) {
 
 export default function Notes() {
   const router = useRouter();
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useState<any[]>([])
   const [isAdmin, setIsAdmin] = useState(false)
   const [showAddFolder, setShowAddFolder] = useState(false)
   const [showAddLink, setShowAddLink] = useState(false)
@@ -20,17 +20,20 @@ export default function Notes() {
   const [linkText, setLinkText] = useState("")
   const [loading, setLoading] = useState(false)
   const [currentFolderId, setCurrentFolderId] = useState(null)
-  const [breadcrumb, setBreadcrumb] = useState([]) // [{id, name}]
+  const [breadcrumb, setBreadcrumb] = useState<any[]>([])
   const [searchQuery, setSearchQuery] = useState("")
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState<any[]>([])
   const [isSearching, setIsSearching] = useState(false)
 
   useEffect(() => {
     fetch('/api/notes')
       .then(r => r.json())
-      .then(data => setNotes(Array.isArray(data) ? data : []))
-    setIsAdmin(typeof window !== 'undefined' && localStorage.getItem('isAdmin') === 'true')
-  }, [loading])
+      .then(data => setNotes(Array.isArray(data) ? data : []));
+  }, [loading]);
+
+  useEffect(() => {
+    setIsAdmin(typeof window !== 'undefined' && localStorage.getItem('isAdmin') === 'true');
+  }, []);
 
   // Breadcrumb logic
   useEffect(() => {

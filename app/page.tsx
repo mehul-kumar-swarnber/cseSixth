@@ -127,12 +127,12 @@ export default function Home() {
   // Announcements carousel auto-advance
   useEffect(() => {
     if (announcements.length === 0) return;
-    setMounted(true)
+    if (!mounted) setMounted(true);
     const interval = setInterval(() => {
       setCurrentAnnounce((prev) => (prev + 1) % announcements.length)
     }, 5000)
     return () => clearInterval(interval)
-  }, [announcements.length])
+  }, [announcements.length, mounted])
 
   // Time state
   useEffect(() => {
