@@ -1,4 +1,4 @@
-const timetable = {
+const timetable: Record<string, string[]> = {
   Monday:   ["Data Structures", "OS", "DBMS", "Networks", "Maths"],
   Tuesday:  ["DBMS", "Data Structures", "OS", "Maths", "Elective"],
   Wednesday:["Networks", "DBMS", "OS", "Data Structures", "Lab"],
@@ -16,7 +16,7 @@ export default function Timetable() {
   const periods = timetable[today] || [];
   return (
     <div className="p-6 space-y-4">
-      <h1 className="text-3xl font-bold mb-8 bg-linear-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+      <h1 className="text-3xl font-bold mb-8 bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
         Today's Timetable
       </h1>
       <div className="w-full max-w-md mx-auto bg-gray-900/80 rounded-2xl shadow-xl border border-gray-800 divide-y divide-gray-800">
