@@ -6,10 +6,27 @@ const AdminLogin = dynamic(() => import('./AdminLogin'), { ssr: false })
 const AdminPanel = dynamic(() => import('./AdminPanel'), { ssr: false })
 import { Bell, Search, Calendar, BookOpen, FileText, User } from 'lucide-react'
 import { FaCogs, FaProjectDiagram, FaRobot, FaGlobe, FaCloud, FaComments, FaUtensils, FaBook, FaAndroid } from 'react-icons/fa'
+import { IconType } from 'react-icons'
 import clsx from 'clsx'
 
+type TimetableSlot = {
+  subject: string;
+  room: string;
+}
+type DaySchedule = {
+  [timeSlot: string]: TimetableSlot;
+}
+type Announcement = {
+  _id?: string;
+  id?: string;
+  title: string;
+  body: string;
+  allotmentDate: string;
+  dueDate: string;
+  priority: 'High' | 'Medium' | 'Low';
+}
 // Timetable with time slots, subject, icon, and room number
-const timetable = {
+const timetable: Record<string, DaySchedule> = {
   Monday: {
     "10:30-11:30": { subject: "CD", room: "C-305" },
     "11:30-12:30": { subject: "SEPM", room: "C-305" },
@@ -64,7 +81,7 @@ const timetable = {
 };
 
 // Subject icon mapping (actual components)
-const subjectIcons = {
+const subjectIcons: Record<string, IconType> = {
   CD: FaCogs,
   SEPM: FaProjectDiagram,
   AI: FaRobot,
@@ -82,8 +99,8 @@ function getToday() {
 }
 
 export default function Home() {
-  const [announcements, setAnnouncements] = useState([])
-  const [notes, setNotes] = useState([])
+  const [announcements, setAnnouncements] = useState<Announcement[]>([])
+  const [notes, setNotes] = useState<any[]>([])
   const [currentAnnounce, setCurrentAnnounce] = useState(0)
   const [showModal, setShowModal] = useState(false)
   const [showAdmin, setShowAdmin] = useState(false)
@@ -92,7 +109,7 @@ export default function Home() {
   const [now, setNow] = useState(new Date())
   const [isAdmin, setIsAdmin] = useState(false)
   const [showAddAnnouncement, setShowAddAnnouncement] = useState(false)
-  const [newAnnForm, setNewAnnForm] = useState({ title: '', body: '', allotmentDate: '', dueDate: '', priority: 'Medium' })
+  const [newAnnForm, setNewAnnForm] = useState({ title: '', body: '', allotmentDate: '', dueDate: '', priority: 'Medium' as 'High' | 'Medium' | 'Low' })
   const [showFileInfo, setShowFileInfo] = useState(false)
   const [showWeeklyTT, setShowWeeklyTT] = useState(false)
 
@@ -144,11 +161,11 @@ export default function Home() {
   const today = getToday();
   const todayTable = timetable[today] || {};
   const periodEntries = Object.entries(todayTable);
-
+  
   // Helper to get current slot
   function getCurrentSlot() {
     const now = new Date();
-    const pad = n => n.toString().padStart(2, '0');
+    const pad = (n: number) => n.toString().padStart(2, '0');
     const current = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
     for (const [slot] of periodEntries) {
       const [start, end] = slot.split('-');
