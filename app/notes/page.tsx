@@ -41,7 +41,8 @@ export default function Notes() {
       setBreadcrumb([])
     } else {
       // Build breadcrumb up to root
-      let path = []
+      // let path = []
+      const path: { id: string; name: string }[] = []
       let id = currentFolderId
       let safety = 0
       while (id && safety < 10) {
