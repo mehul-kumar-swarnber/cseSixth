@@ -1,7 +1,14 @@
 'use client'
-import { createContext, useContext, useState, useEffect } from 'react'
-export const ThemeContext = createContext()
-export function Providers({ children }) {
+import { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react'
+
+type ThemeContextType = {
+  theme: string;
+  setTheme: Dispatch<SetStateAction<string>>;
+}
+
+export const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
+
+export function Providers({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState('dark')
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
