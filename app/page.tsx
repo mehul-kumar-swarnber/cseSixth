@@ -473,7 +473,7 @@ export default function Home() {
         </div>
 
         {/* Time + Timetable + Syllabus Section */}
-        <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 my-8 mt-30 items-stretch z-10 relative">
+        <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 my-8 mt-40 items-stretch z-10 relative">
           {/* Time Section */}
           <div className="w-full lg:w-1/3 flex flex-col items-center justify-center bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-6">
             <h2 className="text-lg font-semibold text-indigo-300 mb-3 tracking-wide">Current Time</h2>
