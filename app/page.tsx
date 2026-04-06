@@ -961,7 +961,7 @@ export default function Home() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
                   { subject: 'Android', color: 'bg-red-400', fileType: 'Cobra File', fileColor: 'Any color', left: 'Code/Output', right: 'Code/Output', pageType: 'Blank A4' },
-                  { subject: 'AI', color: 'bg-blue-400', fileType: 'Office File', fileColor: 'Transparent', left: 'Output', right: 'Code', pageType: 'Blank A4' },
+                  { subject: 'AI', color: 'bg-blue-400', fileType: 'Cobra File', fileColor: 'White', left: 'Output', right: 'Code', pageType: 'Blank A4' },
                   { subject: 'WT', color: 'bg-emerald-400', fileType: 'Cobra File', fileColor: 'Any color', left: 'Code/Output', right: 'Code/Output', pageType: 'Blank A4' },
                   // { subject: 'Networks', color: 'bg-amber-400', fileType: 'Assignment File', fileColor: 'Yellow', left: 'Theory/Notes', right: 'Diagrams/Examples', pageType: 'Ruled' },
                   // { subject: 'Maths', color: 'bg-orange-400', fileType: 'Assignment File', fileColor: 'Orange', left: 'Questions', right: 'Solutions', pageType: 'Ruled', full: true },
